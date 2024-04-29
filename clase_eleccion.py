@@ -24,6 +24,16 @@ class Eleccion:
         else:
             print(f"{votante.nombre} no puede votar por no cumplir con los requisitos.")
 
+    def guardar_candidatos(self, archivo):
+        try:
+            with open(archivo, mode='w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow(['Nombre', 'Partido', 'Letra', 'Votos'])
+                for candidato in self.candidatos:
+                    writer.writerow([candidato.nombre, candidato.partido, candidato.letra, candidato.votos])
+        except IOError:
+            print("Error al guardar los candidatos.")
+
     def guardar_votos(self, archivo):
         try:
             with open(archivo, mode='w', newline='') as file:

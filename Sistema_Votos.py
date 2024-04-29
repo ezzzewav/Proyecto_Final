@@ -23,7 +23,8 @@ while not exit_system:
     print("Seleccione una opción:")
     print("1) Validar identidad")
     print("2) Votar")
-    print("3) Salir del sistema")
+    print("3) Ver cantidad de votos (solo para administradores)")
+    print("4) Salir del sistema")
 
     opcion = input("Ingrese el número de la opción: ")
 
@@ -39,13 +40,11 @@ while not exit_system:
         cedula = input("Ingrese su cédula: ")
         nacionalidad = input("Ingrese su nacionalidad: ")
         if nacionalidad != "costarricense":
-          print("Lo siento, solo se permite el acceso a personas costarricenses.")
-          exit_system = True
-          continue
+            print("Lo siento, solo se permite el acceso a personas costarricenses.")
+            exit_system = True
+            continue
 
         genero = input("Ingrese su género: ")
-
-
 
         votante = Votante(nombre, edad, cedula, nacionalidad)
         votante.verificar_edad_nacionalidad()
@@ -72,6 +71,8 @@ while not exit_system:
 
                 if candidato_seleccionado:
                     eleccion.votar(votante, candidato_seleccionado)
+                    eleccion.guardar_candidatos("candidatos.txt")
+                    eleccion.guardar_votos("votos.csv")
                 else:
                     print("La letra del candidato seleccionado no es válida.")
             else:
@@ -80,10 +81,17 @@ while not exit_system:
             print("Primero debe validar su identidad.")
 
     elif opcion == "3":
+        password = input("Ingrese la contraseña de administrador: ")
+        if password == "1234":
+            for candidato in eleccion.candidatos:
+                print(f"{candidato.nombre}: {candidato.votos} votos")
+        else:
+            print("Contraseña incorrecta. Acceso denegado.")
+
+    elif opcion == "4":
         exit_system = True
 
     else:
-        print("Opción inválida.")
+        print("Opción inválida. Por favor, seleccione una opción válida.")
 
-eleccion.guardar_votos("votos.csv")
 print("Gracias por utilizar el Sistema Costarricense de Votaciones. ¡Hasta pronto!")
