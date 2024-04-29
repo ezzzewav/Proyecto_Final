@@ -1,4 +1,0 @@
-Nombre,Partido,Letra,Votos
-Laura Chinchilla,Partido PLN,A,1
-Carlos Alvarado,Partido PAC,B,0
-Rodrigo Chaves,Partido PSD,C,0
